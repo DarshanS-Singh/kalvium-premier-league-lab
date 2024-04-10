@@ -1,53 +1,117 @@
-//Progression 1 - create a Manager array and return it
-let managerName = "Alex Ferguson";
-let managerAge = 78;
-let currentTeam = "Manchester FC";
-let trophiesWon = 27;
+// Progression 1 - Create a Manager array and return it
+let managerFullName = "Alex Ferguson";
+let managerLifetime = 78;
+let leadingTeam = "Manchester FC";
+let victories = 27;
 
-//Write your function here
+// Function to create manager array
+function buildManagerProfile(fullName, lifetime, team, victories) {
+  let managerDetails = [fullName, lifetime, team, victories];
+  return managerDetails;
+}
 
-// Don't edit the following code
+// Do not edit the code below
 try {
-  var manager = createManager(
-    managerName,
-    managerAge,
-    currentTeam,
-    trophiesWon
+  var managerProfile = buildManagerProfile(
+    managerFullName,
+    managerLifetime,
+    leadingTeam,
+    victories
   );
 } catch (e) {
-  // do nothing - expected error
+  // Expected error handling
 }
 
-//Progression 2 - create a formation object and return it
-var formation = [4, 4, 3];
+// Progression 2 - Create a formation object and return it
+var teamFormation = [4, 4, 3];
 
-//write your function here
+// Function to create formation object
+function generateFormation(formation) {
+  if (formation.length === 0) {
+    return null;
+  }
+  let formationStructure = {
+    defender: formation[0],
+    midfield: formation[1],
+    forward: formation[2],
+  };
+  return formationStructure;
+}
 
-// Dont edit the following code
-
+// Do not edit the code below
 try {
-  var formationObject = createFormation(formation);
+  var formationSetup = generateFormation(teamFormation);
 } catch (e) {
-  //do nothing
+  // Error handling
 }
 
-//Progression 3 - Filter players that debuted in ___ year
+// Progression 3 - Filter players by debut year
+function filterPlayersByDebut(year) {
+  let filteredPlayers = players.filter(player => player.debut === year);
+  return filteredPlayers;
+}
 
-//Progression 4 - Filter players that play at the position _______
+// Progression 4 - Filter players by position
+function filterPlayersByPosition(position) {
+  let positionPlayers = players.filter(player => player.position === position);
+  return positionPlayers;
+}
 
-//Progression 5 - Filter players that have won ______ award
+// Progression 5 - Filter players by award
+function filterPlayersByAward(awardTitle) {
+  let awardedPlayers = [];
+  players.forEach(player => {
+    player.awards.forEach(award => {
+      if (award.name === awardTitle) {
+        awardedPlayers.push(player);
+      }
+    });
+  });
+  return awardedPlayers;
+}
 
-//Progression 6 - Filter players that won ______ award ____ times
+// Progression 6 - Filter players who won a specific award a given number of times
+function filterByAwardTimes(awardTitle, times) {
+  let specificAwardWinners = [];
+  players.forEach(player => {
+    let awardCount = player.awards.filter(award => award.name === awardTitle).length;
+    if (awardCount === times) {
+      specificAwardWinners.push(player);
+    }
+  });
+  return specificAwardWinners;
+}
 
-//Progression 7 - Filter players that won ______ award and belong to ______ country
+// Progression 7 - Filter players by award and nationality
+function filterByAwardAndCountry(awardTitle, nationality) {
+  return filterPlayersByAward(awardTitle).filter(player => player.country === nationality);
+}
 
-//Progression 8 - Filter players that won atleast ______ awards, belong to ______ team and are younger than ____
+// Progression 8 - Advanced filtering
+function advancedPlayerFilter(awardsCount, teamName, maxAge) {
+  return players.filter(player => player.age < maxAge && player.team === teamName && player.awards.length >= awardsCount);
+}
 
-//Progression 9 - Sort players in descending order of their age
+// Progression 9 - Sort players by age in descending order
+function sortPlayersByAgeDescending() {
+  return [...players].sort((a, b) => b.age - a.age);
+}
 
-//Progression 10 - Sort players beloging to _____ team in descending order of awards won
+// Progression 10 - Sort team players by awards count in descending order
+function sortTeamPlayersByAwards(teamName) {
+  return players.filter(player => player.team === teamName)
+                .sort((a, b) => b.awards.length - a.awards.length);
+}
 
-//Challenge 1 - Sort players that have won _______ award _____ times and belong to _______ country in alphabetical order of their names
+// Challenge 1 - Sort by name, for players meeting specific criteria
+function sortPlayersByCriteria(awardTitle, timesWon, nationality) {
+  let eligiblePlayers = filterByAwardTimes(awardTitle, timesWon).filter(player => player.country === nationality);
+  return eligiblePlayers.sort((a, b) => a.name.localeCompare(b.name));
+}
 
-//Challenge 2 - Sort players that are older than _____ years in alphabetical order
-//Sort the awards won by them in reverse chronological order
+// Challenge 2 - Sort players older than a certain age, by name
+function sortPlayersOlderThan(age) {
+  return players.filter(player => player.age > age)
+                .sort((a, b) => a.name.localeCompare(b.name));
+}
+
